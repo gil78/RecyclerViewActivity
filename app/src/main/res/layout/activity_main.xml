@@ -28,6 +28,7 @@
         tools:layout_editor_absoluteY="646dp"
         app:layout_constraintBottom_toBottomOf="@+id/my_recycler"
         app:layout_constraintEnd_toEndOf="@+id/my_recycler"
+        android:layout_margin="5dp"
         />
 
 
