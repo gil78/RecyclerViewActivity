@@ -1,6 +1,7 @@
 package pt.atp.recyclerviewactivity;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,5 +19,7 @@ public class LineHolder extends RecyclerView.ViewHolder {
         title = (TextView) itemView.findViewById(R.id.line_view_title);
         moreButton = (ImageButton) itemView.findViewById(R.id.line_view_update);
         deleteButton = (ImageButton) itemView.findViewById(R.id.line_view_delete);
+
+
     }
 }

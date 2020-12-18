@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Recycler View Activity</string>
+    <string-array name="nomes">
+        <item>Bruno</item>
+        <item>Paulo</item>
+        <item>Ana</item>
+        <item>Maria</item>
+        <item>Francisca</item>
+        <item>José</item>
+        <item>Mário</item>
+        <item>António</item>
+        <item>Pedro</item>
+        <item>Maria</item>
+        <item>Francisca</item>
+        <item>José</item>
+        <item>Mário</item>
+        <item>António</item>
+        <item>Pedro</item>
+    </string-array>
+    <string name="contact_name">Nome:</string>
+    <string name="contact_phone">Nº Telemóvel:</string>
 </resources>

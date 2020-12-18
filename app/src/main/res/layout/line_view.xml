@@ -14,22 +14,23 @@
         android:layout_weight="1"
         android:textSize="24sp"
         android:padding="5dp"
-
+        android:textColor="@color/purple_700"
        />
     <ImageButton
         android:id="@+id/line_view_update"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="5dp"
         android:src="@drawable/update_content"
         android:background="@drawable/roundcorner"
         />
     <ImageButton
         android:id="@+id/line_view_delete"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="5dp"
         android:src="@drawable/delete_content"
         android:background="@drawable/roundcorner"
+
         />
 </LinearLayout>
