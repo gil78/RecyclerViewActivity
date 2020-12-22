@@ -2,6 +2,8 @@ package pt.atp.recyclerviewactivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -13,8 +15,10 @@ import java.util.List;
 
 public class ContactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    //private String[] lista;
+
     private ArrayList<Contact> contacts;
+
+    //BD
     private MyDBAdapter dbAdapter;
     private Context context;
 
@@ -42,18 +46,27 @@ public class ContactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         Contact contact = contacts.get(position);
 
-        ((LineHolder)holder).title.setText(contact.getName() + " (Tel:"+ contact.getPhoneNumber()+")" );
+        ((LineHolder)holder).title.setText(contact.getName() + "; "+ contact.getPhoneNumber());
 
+        //BD
         ((LineHolder)holder).deleteButton.setOnClickListener((view)->{
+            this.notifyItemRemoved(position);
             dbAdapter.removeContact(contact.getId());
             contacts.remove(contact);
-            this.notifyDataSetChanged();
+
         });
         ((LineHolder)holder).moreButton.setOnClickListener((view)->{
             Intent intent = new Intent(context,ContactView.class);
             intent.putExtra("CONTACT_OBJECT",contact);
             intent.putExtra("TYPE","update");
 
+            context.startActivity(intent);
+        });
+
+        ((LineHolder)holder).title.setOnClickListener((view)->{
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            intent.setData(Uri.parse("tel:"+contact.getPhoneNumber()));
             context.startActivity(intent);
         });
 

@@ -47,19 +47,21 @@ public class MainActivity extends AppCompatActivity {
         dbAdapter.open();
 
 
-        /*dbAdapter.insertContact(new Contact("Bruno","3434344123"));
-        dbAdapter.insertContact(new Contact("Paulo","3233234434"));
-        dbAdapter.insertContact(new Contact("Maria","8768756565"));*/
-
         contacts = new ArrayList<>();
-
         populateList(contacts);
 
         ContactsAdapter adapter = new ContactsAdapter(contacts,this,dbAdapter);
 
         recycler.setAdapter(adapter);
+
         // Set layout manager to position the items
-        recycler.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layout = new LinearLayoutManager(this);
+        recycler.setLayoutManager(layout);
+
+        DividerItemDecoration myDivider = new DividerItemDecoration(recycler.getContext(),
+                layout.getOrientation());
+
+        recycler.addItemDecoration(myDivider);
 
         ((FloatingActionButton)findViewById(R.id.floatingActionButton)).setOnClickListener((view)->{
             Intent intent = new Intent(this,ContactView.class);
