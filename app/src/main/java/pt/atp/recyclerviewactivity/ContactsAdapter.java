@@ -22,14 +22,18 @@ public class ContactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private MyDBAdapter dbAdapter;
     private Context context;
 
+    //ROOM
+    private AppDatabase db;
+
     /*public ContactsAdapter(ArrayList<Contact> lista){
         this.lista =lista;
     }*/
 
-    public ContactsAdapter(ArrayList<Contact> lista, Context context, MyDBAdapter dbAdapter){
+    public ContactsAdapter(ArrayList<Contact> lista, Context context, MyDBAdapter dbAdapter,AppDatabase db){
         this.contacts =lista;
         this.context = context;
         this.dbAdapter = dbAdapter;
+        this.db = db;
     }
 
     @NonNull
@@ -46,12 +50,15 @@ public class ContactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         Contact contact = contacts.get(position);
 
+        Log.w("DATA",contact.getName() + "; "+ contact.getPhoneNumber());
+
         ((LineHolder)holder).title.setText(contact.getName() + "; "+ contact.getPhoneNumber());
 
         //BD
         ((LineHolder)holder).deleteButton.setOnClickListener((view)->{
             this.notifyItemRemoved(position);
-            dbAdapter.removeContact(contact.getId());
+            //dbAdapter.removeContact(contact.getId());
+            db.contactDao().delete(contact);
             contacts.remove(contact);
 
         });

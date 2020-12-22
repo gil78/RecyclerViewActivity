@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +20,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private ArrayList<Contact> contacts;
+    private ArrayList<Contact> contacts ;
     private RecyclerView recycler;
     private MyDBAdapter dbAdapter;
+
+    //ROOM
+    AppDatabase db;
 
     @Override
     protected void onResume() {
@@ -47,10 +52,15 @@ public class MainActivity extends AppCompatActivity {
         dbAdapter.open();
 
 
+        //ROOM
+        db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "myContactsRoom.db").allowMainThreadQueries().build();
+
         contacts = new ArrayList<>();
         populateList(contacts);
 
-        ContactsAdapter adapter = new ContactsAdapter(contacts,this,dbAdapter);
+        ContactsAdapter adapter = new ContactsAdapter(contacts,this,dbAdapter,db);
+
 
         recycler.setAdapter(adapter);
 
@@ -74,13 +84,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void populateList(ArrayList<Contact> contacts){
-        Cursor cursor = dbAdapter.getAllContacts();
+        /*Cursor cursor = dbAdapter.getAllContacts();
 
         while(cursor.moveToNext()){
             contacts.add(new Contact(cursor.getLong(0),cursor.getString(1),cursor.getString(2)));
 
-        }
+        }*/
+        ContactDao contactDao = db.contactDao();
+        for(Contact c : contactDao.getAll())
+            contacts.add(c);
     }
+
 
 
 }
